@@ -3,8 +3,8 @@
   "apiVersion": 3,
   "name": "post-grid-block/post-grid",
   "version": "1.0.0",
-  "title": "Post Grid",
-  "category": "post-grid-block",
+  "title": "Post Grid Block",
+  "category": "widgets",
   "description": "Add a post grid to the block editor.",
   "example": {},
   "supports": {

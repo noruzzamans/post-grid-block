@@ -3,7 +3,7 @@
  * Plugin Name: Post Grid Block
  * Description: Enhance your site with dynamic, customizable post grid blocks to create a more engaging and functional experience.
  * Author: 		Noruzzaman
- * Plugin URI: 	https://wordpress.org/plugins/post-grid-block
+ * Plugin URI: 	https://github.com/noruzzamans/post-grid-block
  * Author URI: 	https://github.com/noruzzamans/
  * Version: 	1.0.0
  * Text Domain: post-grid-block
