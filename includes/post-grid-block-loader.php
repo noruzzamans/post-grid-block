@@ -45,9 +45,11 @@ if ( ! class_exists( 'PostGridBlockLoader' ) ) {
 		 * @return void
 		 */
 		private function includes() {
-            require_once trailingslashit( POST_GRID_BLOCK_PLUGIN_DIR ) . '/inc/classes/register-blocks.php';
-            require_once trailingslashit( POST_GRID_BLOCK_PLUGIN_DIR ) . '/inc/classes/register-category.php';
-            require_once trailingslashit( POST_GRID_BLOCK_PLUGIN_DIR ) . '/inc/classes/dynamic-style.php';
+			require_once trailingslashit( POST_GRID_BLOCK_PLUGIN_DIR ) . '/includes/classes/register-blocks.php';
+			require_once trailingslashit( POST_GRID_BLOCK_PLUGIN_DIR ) . '/includes/classes/post-grid-block-enqueues.php';
+			require_once trailingslashit( POST_GRID_BLOCK_PLUGIN_DIR ) . '/includes/Helpers/post-grid-block-helpers.php';
+
+
 		}
 
 		/**

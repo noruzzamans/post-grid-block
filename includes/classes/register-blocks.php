@@ -55,23 +55,11 @@ if ( ! class_exists( 'PostGridBlock_Registration' ) ) {
 		 * @return void
 		 */
 		public function register_blocks() {
-			$blocks = [
-				'post-grid',
-			];
 
-			$build_dir = POST_GRID_BLOCK_PLUGIN_DIR . 'build/blocks/';
+			$block_dir = POST_GRID_BLOCK_PLUGIN_DIR . 'build/';
 
-			if ( file_exists( $build_dir ) ) {
-				foreach ( $blocks as $block ) {
-					$block_dir = $build_dir . $block . '/';
-					if ( file_exists( $block_dir ) ) {
-						register_block_type( $block_dir );
-					} else {
-						error_log( "Post Grid Block: Build directory for {$block} block does not exist." );
-					}
-				}
-			} else {
-				error_log( 'Post Grid Block: Main build directory does not exist.' );
+			if ( file_exists( $block_dir ) ) {
+				register_block_type( $block_dir );
 			}
 		}
 

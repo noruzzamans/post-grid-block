@@ -116,7 +116,7 @@ if ( ! class_exists( 'PostGridBlock' ) ) {
 		 * @return void
 		 */
 		private function includes() {
-			require_once trailingslashit( POST_GRID_BLOCK_PLUGIN_DIR ) . 'inc/post-grid-block-loader.php';
+			require_once trailingslashit( POST_GRID_BLOCK_PLUGIN_DIR ) . 'includes/post-grid-block-loader.php';
 		}
 	}
 
