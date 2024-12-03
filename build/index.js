@@ -92,13 +92,26 @@ function Edit({
     className: blockId
   });
 
-  // Fetch available post types
-  const postTypes = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_2__.useSelect)(select => select('core').getPostTypes(), []);
-  const posts = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_2__.useSelect)(select => select('core').getEntityRecords('postType', postType, {
-    per_page: postsPerPage,
-    order,
-    orderby: orderBy
-  }), [postType, postsPerPage, orderBy, order]);
+  /** Start post type */
+  const getPostTypes = postGridBlockParams.post_types;
+
+  // Map post type keys to readable labels
+  const postTypes = Object.entries(getPostTypes).map(([key, label]) => ({
+    value: key,
+    label: label
+  }));
+
+  // Fetch posts using useSelect
+  const posts = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_2__.useSelect)(select => {
+    const {
+      getEntityRecords
+    } = select('core');
+    return getEntityRecords('postType', postType, {
+      per_page: postsPerPage,
+      orderby: orderBy,
+      order: order
+    });
+  }, [postType, postsPerPage, orderBy, order]);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.Fragment, {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.InspectorControls, {
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.PanelBody, {
@@ -106,10 +119,7 @@ function Edit({
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.SelectControl, {
           label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Post Type', 'post-grid-block'),
           value: postType,
-          options: postTypes?.map(type => ({
-            label: type.name,
-            value: type.slug
-          })) || [],
+          options: postTypes,
           onChange: value => setAttributes({
             postType: value
           })

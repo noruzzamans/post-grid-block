@@ -35,10 +35,10 @@ if ( ! class_exists( 'PostGridBlock_Enqueues' ) ) {
 		 * @return void
 		 */
 		public function __construct() {
-			add_action( 'enqueue_block_editor_assets', array( $this, 'enqueue_editor_assets' ) );
+			add_action( 'enqueue_block_editor_assets', array( $this, 'postgridblock_editor_assets_loader' ) );
 		}
 
-        public function enqueue_editor_assets() {
+        public function postgridblock_editor_assets_loader() {
             /**
              * Enqueue editor assets only in the admin area
              */
@@ -46,10 +46,35 @@ if ( ! class_exists( 'PostGridBlock_Enqueues' ) ) {
                 return;
             }
 
-            /**
-             * This function is used to enqueue JavaScript files for the Post Grid Block plugin
-             */
-            wp_localize_script( 'post-grid-block-script', 'postGridBlockParams', array(
+			/**
+			 * Fetch asset dependencies and version from the asset manifest
+			 */
+			$script_asset_path = POST_GRID_BLOCK_PLUGIN_DIR . 'build/index.asset.php';
+
+			if ( file_exists( $script_asset_path ) ) {
+				$script_dependency = include $script_asset_path;
+			} else {
+				$script_dependency = [
+					'dependencies' => [],
+					'version'      => POST_GRID_BLOCK_VERSION,
+				];
+			}
+
+			/**
+			 * Enqueue the JavaScript file
+			 */
+			wp_enqueue_script(
+				'post-grid-block-script',
+				trailingslashit( POST_GRID_BLOCK_URL ) . 'build/index.js',
+				$script_dependency['dependencies'],
+				$script_dependency['version'],
+				true
+			);
+
+			/**
+			 * This function is used to localize the JavaScript files for the Post Grid Block plugin
+			 */
+			wp_localize_script( 'post-grid-block-script', 'postGridBlockParams', array(
                 'ajaxurl'                   => admin_url( 'admin-ajax.php' ),
                 'post_types'                => PostGridBlock_Helpers::get_post_types(),
                 'home_url'                  => home_url(),
